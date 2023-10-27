@@ -8,7 +8,10 @@
       let
         pkgs = import nixpkgs {
           inherit system;
-          config.android_sdk.accept_license = true;
+          config = {
+            allowUnfree = true;
+            android_sdk.accept_license = true;
+          };
         };
         androidPkgs = pkgs.androidenv.composeAndroidPackages {
           /*
@@ -26,7 +29,7 @@
           # JAVA_HOME = "${pkgs.jdk}/lib/openjdk";
           nativeBuildInputs = with pkgs; [
             flutter
-            chromiuim
+            chromium
           ];
           env = {
             CHROME_EXECUTABLE = "chromium";
