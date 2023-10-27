@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:core';
 import 'dart:async';
+import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 
 void main() {
@@ -77,13 +78,13 @@ class MapSampleState extends State<MapSample> {
         mapType: MapType.normal,
         myLocationEnabled: true,
         initialCameraPosition: _kGooglePlex,
-        onMapCreated: (GoogleMapController controller) {
+        onMapCreated: (GoogleMapController controller) async {
           _controller.complete(controller);
         },
         tileOverlays: <TileOverlay>{
           TileOverlay(
             tileOverlayId: TileOverlayId('pollen'),
-            tileProvider: PollenTileProvider(),
+            tileProvider: new PollenTileProvider(),
           ),
         },
       ),
@@ -94,8 +95,8 @@ class MapSampleState extends State<MapSample> {
 class PollenTileProvider implements TileProvider {
   @override
   Future<Tile> getTile(int x, int y, int? zoom) async {
-    var uri = Uri.https('pollen.googleapis.com', '/v1/mapTypes/TREE_UPI/heatmapTiles/$zoom/$x/$y', {'key': 'YOUR_API_KEY'});
-    print(await http.read(uri));
-    throw UnimplementedError();
+    var uri = Uri.https('pollen.googleapis.com', '/v1/mapTypes/TREE_UPI/heatmapTiles/$zoom/$x/$y', {'key': 'AIzaSyAJvYO51ZXJ37odx-UHhBvkdDrhYEjeYGY'});
+    var data = await http.readBytes(uri, headers: {'Referer': 'https://storage.googleapis.com/'});
+    return Tile(256, 256, data);
   }
 }
