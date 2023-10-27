@@ -26,7 +26,7 @@
       in
       {
         devShell = pkgs.mkShell {
-          # JAVA_HOME = "${pkgs.jdk}/lib/openjdk";
+          JAVA_HOME = "${pkgs.jdk17}/lib/openjdk";
           nativeBuildInputs = with pkgs; [
             flutter
             chromium
