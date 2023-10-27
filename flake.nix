@@ -17,18 +17,18 @@
           /*
           toolsVersion = "26.1.1";
           platformToolsVersion = "31.0.3";
-          buildToolsVersions = [ "31.0.0" ];
           includeEmulator = false;
           emulatorVersion = "30.9.0";
-          platformVersions = [ "31" ];
           */
+          buildToolsVersions = [ "30.0.3" ];
+          platformVersions = [ "33" ];
         };
       in
       {
         devShell = pkgs.mkShell {
           JAVA_HOME = "${pkgs.jdk17}/lib/openjdk";
           nativeBuildInputs = with pkgs; [
-            flutter
+            steam-run
             chromium
           ];
           env = {
