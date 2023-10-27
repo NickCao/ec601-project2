@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'dart:core';
 import 'dart:async';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(const MyApp());
@@ -78,7 +80,22 @@ class MapSampleState extends State<MapSample> {
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
         },
+        tileOverlays: <TileOverlay>{
+          TileOverlay(
+            tileOverlayId: TileOverlayId('pollen'),
+            tileProvider: PollenTileProvider(),
+          ),
+        },
       ),
     );
+  }
+}
+
+class PollenTileProvider implements TileProvider {
+  @override
+  Future<Tile> getTile(int x, int y, int? zoom) async {
+    var uri = Uri.https('pollen.googleapis.com', '/v1/mapTypes/TREE_UPI/heatmapTiles/$zoom/$x/$y', {'key': 'YOUR_API_KEY'});
+    print(await http.read(uri));
+    throw UnimplementedError();
   }
 }
