@@ -95,6 +95,7 @@ class MapSampleState extends State<MapSample> {
 class PollenTileProvider implements TileProvider {
   @override
   Future<Tile> getTile(int x, int y, int? zoom) async {
+    // key is grabbed from https://storage.googleapis.com/gmp-maps-demos/pollen/index.html
     var uri = Uri.https('pollen.googleapis.com', '/v1/mapTypes/TREE_UPI/heatmapTiles/$zoom/$x/$y', {'key': 'AIzaSyAJvYO51ZXJ37odx-UHhBvkdDrhYEjeYGY'});
     var data = await http.readBytes(uri, headers: {'Referer': 'https://storage.googleapis.com/'});
     return Tile(256, 256, data);
