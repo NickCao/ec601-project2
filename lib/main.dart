@@ -3,6 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:core';
 import 'dart:async';
 import 'dart:typed_data';
+import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 void main() {
@@ -67,9 +68,11 @@ class MapSampleState extends State<MapSample> {
       Completer<GoogleMapController>();
 
   static const CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(42.3505, -71.106918),
+    target: LatLng(-33.86677454358747, 151.2084462493658),
     zoom: 14.4746,
   );
+
+  final Set<Marker> markers = {};
 
   @override
   Widget build(BuildContext context) {
@@ -87,6 +90,29 @@ class MapSampleState extends State<MapSample> {
             tileProvider: new PollenTileProvider(),
             transparency: 0.6,
           ),
+        },
+        markers: markers,
+        onTap: (LatLng pos) async {
+          var uri = Uri.https('pollen.googleapis.com', '/v1/forecast:lookup', {
+            'key': 'AIzaSyAJvYO51ZXJ37odx-UHhBvkdDrhYEjeYGY',
+            'location.longitude': pos.longitude.toString(),
+            'location.latitude': pos.latitude.toString(),
+            'days': 1.toString(),
+          });
+          var data = await http.read(uri, headers: {'Referer': 'https://storage.googleapis.com/'});
+          var info = json.decode(data)["dailyInfo"][0]["pollenTypeInfo"][0];
+          setState(() {
+            markers.add(Marker(
+              markerId: MarkerId('src'),
+              position: pos,
+              infoWindow: InfoWindow(
+                title: info["indexInfo"]["category"],
+                snippet: info["indexInfo"]["indexDescription"],
+              ),
+            ));
+
+          });
+          (await _controller.future).showMarkerInfoWindow(MarkerId('src'));
         },
       ),
     );
