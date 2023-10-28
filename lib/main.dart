@@ -85,6 +85,7 @@ class MapSampleState extends State<MapSample> {
           TileOverlay(
             tileOverlayId: TileOverlayId('pollen'),
             tileProvider: new PollenTileProvider(),
+            transparency: 0.6,
           ),
         },
       ),

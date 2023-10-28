@@ -34,6 +34,7 @@
           env = {
             CHROME_EXECUTABLE = "chromium";
             ANDROID_SDK_ROOT = "${androidPkgs.androidsdk}/libexec/android-sdk";
+            # GRADLE_OPTS = "-Dorg.gradle.project.android.aapt2FromMavenOverride=${androidPkgs.androidsdk}/libexec/android-sdk/build-tools/30.0.3/aapt2";
           };
         };
       });
