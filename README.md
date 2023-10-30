@@ -1,16 +1,8 @@
 # ec601_project2
 
-A new Flutter project.
+## mission statement
+Many are allergic to pollen, and struggle to commute in pollen seasons, we want to create a pollen aware map application, providing them with routes around these pollen heavy regions.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## user stories
+- As a person allergic to pollen, I want to know the realtime/predicted pollen concentration of my current/surrounding location.
+- As a person allergic to pollen, I want to have a better route to work avoiding pollen heavy regions.
